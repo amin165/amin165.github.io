@@ -7,6 +7,202 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modifications au style et à l'emplacement du contenu */
+        .about-content {
+            flex-direction: row-reverse; /* Inverse l'ordre : texte à gauche, photo à droite */
+            gap: 40px; /* Réduction de l'espacement pour un look plus compact */
+            justify-content: space-between; /* Meilleure répartition de l'espace */
+            align-items: flex-start; /* Alignement en haut pour un flux plus naturel */
+        }
+
+        .about-photo {
+            flex: 0 0 40%; /* La photo prend 40% de la largeur, plus équilibré */
+            text-align: center; /* Centre la photo */
+        }
+
+        .profile-photo {
+            width: 300px; /* Réduction de la taille pour un aspect plus discret */
+            height: 300px;
+            border-radius: 50%; /* Bordures parfaitement rondes pour un style moderne */
+            border: 4px solid var(--accent-color); /* Bordure plus épaisse avec couleur accentuée */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+            transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transition plus fluide */
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05) rotate(3deg); /* Effet de zoom et rotation au survol */
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text {
+            flex: 1; /* Le texte prend l'espace restant */
+        }
+
+        .about-highlights {
+            display: flex; /* Changement en flex pour un emplacement horizontal */
+            flex-direction: row; /* Disposition horizontale des highlights */
+            gap: 20px; /* Espacement entre les items */
+            margin-top: 25px; /* Espacement supplémentaire au-dessus */
+            flex-wrap: nowrap; /* Empêche le retour à la ligne pour garder les trois en une seule ligne */
+            overflow-x: auto; /* Ajout de scroll horizontal si nécessaire sur petits écrans */
+        }
+
+        .highlight-item {
+            background: var(--bg-secondary); /* Fond léger pour les highlights */
+            padding: 20px; /* Padding interne augmenté pour plus de confort */
+            border-radius: var(--border-radius); /* Bordures arrondies */
+            box-shadow: var(--shadow-md); /* Ombre plus prononcée */
+            text-align: center; /* Centrage du texte pour un look équilibré */
+            flex: 1; /* Chaque item prend un espace égal */
+            min-width: 250px; /* Largeur minimale ajustée pour éviter un écrasement excessif */
+            display: flex; /* Utilisation de flex pour aligner icône et texte */
+            flex-direction: column; /* Icône au-dessus du texte */
+            align-items: center; /* Centrage horizontal */
+        }
+
+        .highlight-item i {
+            font-size: 2.5rem; /* Icônes plus grandes */
+            color: var(--accent-color); /* Couleur accentuée pour les icônes */
+            margin-bottom: 10px; /* Espacement sous l'icône */
+        }
+
+        .highlight-item div {
+            flex: 1; /* Le texte prend l'espace restant */
+        }
+
+        .highlight-item h4 {
+            margin-bottom: 5px; /* Espacement sous le titre */
+            color: var(--primary-color); /* Couleur primaire pour les titres */
+        }
+
+        .highlight-item p {
+            margin: 0; /* Suppression des marges par défaut */
+            color: var(--text-secondary); /* Couleur secondaire pour le texte */
+        }
+
+        .about-stats {
+            display: grid; /* Changement en grille pour les stats */
+            grid-template-columns: repeat(2, 1fr); /* Deux colonnes pour un emplacement plus large */
+            gap: 20px; /* Espacement entre les stats */
+            margin-top: 30px; /* Espacement au-dessus */
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Dégradé pour un style dynamique */
+            color: white; /* Texte blanc pour contraste */
+            padding: 20px; /* Padding plus généreux */
+            border-radius: var(--border-radius); /* Bordures arrondies */
+            text-align: center; /* Centrage */
+            box-shadow: var(--shadow-md); /* Ombre moyenne */
+        }
+
+        .stat-number {
+            font-size: 2.5rem; /* Taille plus grande pour les nombres */
+            font-weight: 700;
+            color: white; /* Blanc spécifique pour le nombre */
+        }
+
+        .stat-label {
+            font-size: 1rem; /* Taille ajustée pour les labels */
+            margin-top: 5px;
+            color: white; /* Blanc spécifique pour le label */
+        }
+
+        /* Modifications pour la section éducation (timeline) */
+        .education .section-title {
+            font-size: 2.2rem; /* Taille augmentée pour plus d'impact */
+            font-weight: 700; /* Plus gras */
+            color: var(--primary-color); /* Couleur primaire pour le titre */
+            text-align: center; /* Centrage du titre */
+            margin-bottom: 30px; /* Espacement accru en dessous */
+            text-transform: uppercase; /* Majuscules pour un style distinct */
+            letter-spacing: 1px; /* Espacement des lettres pour élégance */
+            border-bottom: 2px solid var(--accent-color); /* Ligne soulignée avec couleur accentuée */
+            padding-bottom: 10px; /* Espacement sous la ligne */
+        }
+
+        .timeline {
+            display: flex; /* Maintien en flex */
+            flex-direction: column; /* Changement à vertical pour un emplacement linéaire traditionnel */
+            gap: 25px; /* Espacement augmenté entre les items */
+            padding: 0; /* Suppression du padding vertical */
+            position: relative; /* Pour ajouter une ligne de timeline si désiré */
+        }
+
+        .timeline::before {
+            content: ''; /* Ajout d'une ligne verticale pour la timeline */
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            flex: none; /* Items ne s'étendent pas */
+            background: white; /* Fond blanc pour contraste */
+            padding: 20px; /* Padding interne augmenté */
+            border-radius: var(--border-radius); /* Bordures arrondies */
+            box-shadow: var(--shadow-lg); /* Ombre plus forte */
+            position: relative; /* Pour le dot */
+            padding-left: 50px; /* Espace pour la ligne et le dot */
+        }
+
+        .timeline-item::before {
+            content: ''; /* Dot pour chaque item */
+            position: absolute;
+            left: 15px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            z-index: 1;
+        }
+
+        .timeline-date {
+            font-weight: 600; /* Plus gras pour les dates */
+            color: white; /* Changement en blanc comme demandé */
+            background: var(--primary-color); /* Fond bleu pour contraste avec texte blanc */
+            padding: 5px 10px; /* Padding pour le fond */
+            border-radius: 4px; /* Bordures arrondies */
+            display: inline-block; /* Pour que le fond s'adapte au texte */
+            margin-bottom: 10px; /* Espacement en dessous */
+        }
+
+        .timeline-content h4 {
+            margin-top: 0; /* Suppression de l'espacement au-dessus */
+            color: var(--text-primary); /* Couleur principale */
+        }
+
+        .timeline-content p {
+            margin: 0; /* Suppression des marges */
+            color: var(--text-secondary);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column-reverse; /* Sur mobile, texte en haut, photo en bas */
+            }
+
+            .about-highlights {
+                flex-direction: row; /* Maintien horizontal sur mobile si possible */
+                flex-wrap: nowrap; /* Empêche le wrap */
+                overflow-x: auto; /* Scroll horizontal */
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr; /* Une colonne sur mobile */
+            }
+
+            .timeline {
+                flex-direction: column; /* Déjà vertical */
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="navbar">
@@ -15,6 +211,7 @@
             <ul class="nav-menu">
                 <li><a class="nav-link" href="index.html">Accueil</a></li>
                 <li><a class="nav-link active" href="about.html">À propos</a></li>
+                <li><a class="nav-link" href="education.html">Formation</a></li>
                 <li><a class="nav-link" href="skills.html">Compétences</a></li>
                 <li><a class="nav-link" href="experience.html">Expérience</a></li>
                 <li><a class="nav-link" href="projects.html">Projets</a></li>
@@ -33,7 +230,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">À propos de moi</h2>
-                <p class="section-subtitle">Découvrez mon parcours et ma passion pour l’intelligence artificielle</p>
+                
             </div>
 
             <div class="about-content">
@@ -69,10 +266,10 @@
                             </div>
                         </div>
                         <div class="highlight-item">
-                            <i class="fas fa-lightbulb"></i>
+                            <i class="fas fa-database"></i>
                             <div>
-                                <h4>Innovation</h4>
-                                <p>Création de projets alliant IA, technologie et utilité pratique</p>
+                                <h4>Données et Analyse</h4>
+                                <p>Big Data, Business Intelligence et Systèmes Décisionnels</p>
                             </div>
                         </div>
                     </div>
@@ -93,45 +290,7 @@
         </div>
     </section>
 
-    <!-- SECTION FORMATION -->
-    <section class="education">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Mon parcours académique</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">2024 – 2026</div>
-                    <div class="timeline-content">
-                        <h4>Master en Intelligence Artificielle et Applications (en cours)</h4>
-                        <p>Université Ibn Zohr, Faculté Polydisciplinaire, Ouarzazate</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2023 – 2024</div>
-                    <div class="timeline-content">
-                        <h4>Licence en Sciences et Techniques (LST) Génie Logiciel</h4>
-                        <p>Université Moulay Ismail, FST Errachidia</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2021 – 2023</div>
-                    <div class="timeline-content">
-                        <h4>Diplôme des Études Universitaires en Sciences et Techniques (DEUST)</h4>
-                        <p>Université Moulay Ismail, FST Errachidia</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2021</div>
-                    <div class="timeline-content">
-                        <h4>Baccalauréat Scientifique, Sciences Physiques</h4>
-                        <p>Mention Assez Bien</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- PIED DE PAGE -->
     <footer class="footer">
         <div class="container footer-content">
