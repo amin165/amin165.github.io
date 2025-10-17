@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -159,11 +120,20 @@
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Empêche la soumission par défaut
 
+            // Collecte des données du formulaire
+            const formData = {
+                from_name: this.user_name.value,
+                reply_to: this.user_email.value, // Pour configurer le Reply-To dans le template EmailJS
+                subject: this.subject.value,
+                message: this.message.value + '\n\n---\nEmail de l\'expéditeur: ' + this.user_email.value + '\nNom: ' + this.user_name.value // Ajout explicite des infos utilisateur dans le corps du message
+            };
+
             // Étape 2: Remplacez 'YOUR_SERVICE_ID' par l'ID de votre service EmailJS
             // Créez un service sur https://dashboard.emailjs.com/admin/integration
             // Étape 3: Remplacez 'YOUR_TEMPLATE_ID' par l'ID de votre template EmailJS
             // Créez un template sur https://dashboard.emailjs.com/admin/templates
-            emailjs.sendForm('service_qkrps37', 'template_yemx6qd', this)
+            // Assurez-vous que votre template inclut {{reply_to}} pour le header Reply-To et {{from_email}} ou similaire si needed
+            emailjs.send('service_qkrps37', 'template_yemx6qd', formData)
                 .then(function() {
                     alert('Message envoyé avec succès ! Je vous répondrai bientôt.');
                     this.reset(); // Réinitialise le formulaire
