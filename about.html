@@ -24,8 +24,9 @@
 
         .profile-photo {
             width: 300px; /* Réduction de la taille pour un aspect plus discret */
-            height: 300px;
-            border-radius: 50%; /* Bordures parfaitement rondes pour un style moderne */
+            height: auto; /* Préserve le ratio d'aspect original */
+            border-radius: 0; /* Pas circulaire, forme originale de l'image */
+            object-fit: contain; /* Affiche l'image entière sans cropping */
             border: 4px solid var(--accent-color); /* Bordure plus épaisse avec couleur accentuée */
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
             transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transition plus fluide */
@@ -237,7 +238,7 @@
             <div class="about-content">
                 <!-- Photo -->
                 <div class="about-photo">
-                    <img src="nk.png" alt="Ouakach Amine" class="profile-photo">
+                    <img src="002.png" alt="Ouakach Amine" class="profile-photo">
                 </div>
 
                 <!-- Description -->

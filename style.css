@@ -24,26 +24,29 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* === Animations de l'image de profil === */
 .profile-img {
     animation: floatSlow 10s ease-in-out infinite;
     transition: transform 0.9s ease, box-shadow 0.9s ease;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
+
 .profile-photo {
     width: 350px;
-    height: 350px;
-    border-radius: 47%;
-    object-fit: cover;
+    height: auto;
+    border-radius: 0; /* Pas circulaire, forme originale de l'image */
+    object-fit: contain; /* Affiche l'image entière sans cropping */
     border: 2px solid #acd1fc;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
 }
+
 .profile-img img {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto; /* Préserve le ratio d'aspect */
+    object-fit: contain; /* Affiche la forme complète */
     transition: transform 0.9s ease;
 }
 
@@ -56,13 +59,13 @@
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
     border-color: var(--primary-color);
 }
+
 .about-content {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 50px; /* espace entre photo et texte */
 }
-
 
 /* Animation flottante douce */
 @keyframes floatSlow {
@@ -239,15 +242,17 @@ body {
     line-height: 1.9;
     font-weight: 300;
 }
+
 nav a.active {
     color: #007BFF !important; /* Bleu par défaut, avec !important pour surcharger d'autres styles */
     font-weight: bold; /* Optionnel : pour le rendre plus visible */
 }
   
-  nav a {
+nav a {
     color: inherit; /* Couleur par défaut pour les liens non actifs */
     text-decoration: none; /* Supprime le soulignement si présent */
 }
+
 .hero-buttons {
     display: flex;
     gap: 1rem;
@@ -321,15 +326,15 @@ nav a.active {
 .profile-card {
     position: relative;
     width: 280px; /* Taille légèrement réduite pour minimalisme */
-    height: 280px;
+    height: auto; /* Adapté à la forme de l'image */
     margin: 0 auto;
 }
 
 .profile-img {
     width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
+    height: auto;
+    border-radius: 0; /* Pas circulaire */
+    overflow: visible; /* Permet d'afficher la forme complète sans clipping */
     border: 4px solid #e2e8f0; /* Bordure gris clair */
     position: relative;
     z-index: 2;
@@ -342,8 +347,8 @@ nav a.active {
 
 .profile-img img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
 }
 
 .profile-decorations {
@@ -1103,7 +1108,7 @@ section {
 
     .profile-card {
         width: 250px;
-        height: 250px;
+        height: auto;
     }
 
     .hero-buttons {
@@ -1128,6 +1133,7 @@ section {
         padding: 1.5rem;
     }
 }
+
 /* Styles pour les liens de navigation actifs */
 .nav-link {
     text-decoration: none; /* Supprime le soulignement par défaut */
